@@ -32,7 +32,7 @@ contract Lottery {
 
     function runLottery() external onlyManager {
 
-        uint winnerIdx = 1;
+        uint winnerIdx = uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, participants.length))) % participants.length;
         address payable winner;
         winner = participants[winnerIdx];
         winner.transfer( address(this).balance );
